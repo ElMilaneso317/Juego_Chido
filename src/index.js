@@ -35,10 +35,10 @@ const actualizarBarras = () => {
 };
 
 const posiblesNames = (personaje,accion) => {
-  const f = `./public/img/${personaje}`;
+  const f = `public/img/${personaje}`;
   const mapSel = {Veguito:"01",Veguetta:"02",Trunks:"03",Pikoro:"04",Goku:"05",Gohan:"06",Gogueta:"07",Cell:"08",Bocchi:"09",Girl:"10"};
   switch(accion){
-    case"seleccion": return [`./public/img/seleccion/${mapSel[personaje]||"01"}.png`,`${f}/seleccion.gif`,`${f}/seleccion.png`];
+    case"seleccion": return [`public/img/seleccion/${mapSel[personaje]||"01"}.png`,`${f}/seleccion.gif`,`${f}/seleccion.png`];
     case"idle": return [`${f}/idle.gif`,`${f}/base.png`,`${f}/idle.png`];
     case"basico": return [`${f}/ataque1.gif`,`${f}/basico.gif`,`${f}/ataque1.png`,`${f}/basico.png`];
     case"especial": return [`${f}/ataque2.gif`,`${f}/especial.gif`,`${f}/ataque2.png`,`${f}/especial.png`];
@@ -60,7 +60,7 @@ const findAvailableImage = (paths,cb)=>{
 const showImageSwal = (title, personaje, accion, opts={})=>{
   findAvailableImage(posiblesNames(personaje,accion),found=>{
     Swal.fire(Object.assign({
-      title, imageUrl:found||`./public/img/${personaje}/base.png`, imageHeight:opts.imageHeight||300,
+      title, imageUrl:found||`public/img/${personaje}/base.png`, imageHeight:opts.imageHeight||300,
       background:opts.background||"black", showConfirmButton:opts.showConfirmButton||false, timer:opts.timer||1200
     },opts.swalExtra||{}));
   });
@@ -89,8 +89,8 @@ btn_py1.addEventListener("click",()=>{
   document.getElementById("username1").innerText=name;
   document.getElementById("nombre_personaje1").innerText=personaje1;
   const img1=document.getElementById("img_personaje1");
-  img1.onerror=()=>{img1.src=`./public/img/${personaje1}/base.png`;};
-  img1.src=`./public/img/${personaje1}/idle.gif`;
+  img1.onerror=()=>{img1.src=`public/img/${personaje1}/base.png`;};
+  img1.src=`public/img/${personaje1}/idle.gif`;
 });
 
 btn_py2.addEventListener("click",()=>{
@@ -100,8 +100,8 @@ btn_py2.addEventListener("click",()=>{
   document.getElementById("username2").innerText=name;
   document.getElementById("nombre_personaje2").innerText=personaje2;
   const img2=document.getElementById("img_personaje2");
-  img2.onerror=()=>{img2.src=`./public/img/${personaje2}/base.png`;};
-  img2.src=`./public/img/${personaje2}/idle.gif`;
+  img2.onerror=()=>{img2.src=`public/img/${personaje2}/base.png`;};
+  img2.src=`public/img/${personaje2}/idle.gif`;
   document.getElementById("seleccion_jugadores").classList.add("d-none");
   document.getElementById("batalla").classList.remove("d-none");
   cambiarFondoAleatorio();
@@ -137,11 +137,11 @@ const playAction = (atq,def,pers,accion)=>{
       setTimeout(()=>Swal.fire({
         title:`${atq.name} ganó la batalla`,
         text:"¿Quieres una revancha o salir del juego?",
-        imageUrl:`./public/img/${pers}/victoria.gif`,
+        imageUrl:`public/img/${pers}/victoria.gif`,
         imageHeight:220,background:"rgba(0,0,0,0.9)",color:"#fff",
         showDenyButton:true,confirmButtonText:" Revancha",denyButtonText:" Salir",
         confirmButtonColor:"#28a745",denyButtonColor:"#d33",allowOutsideClick:false,
-        backdrop:`rgba(0,0,0,0.7) url("./public/img/efectos/confetti.gif") center top no-repeat`
+        backdrop:`rgba(0,0,0,0.7) url("public/img/efectos/confetti.gif") center top no-repeat`
       }).then(r=>r.isConfirmed?reiniciarJuego():Swal.fire({title:"¡Gracias por jugar!",text:"Esperamos verte en la próxima batalla ",icon:"info",confirmButtonText:"Salir",background:"black",color:"white"}).then(()=>location.reload())),1300);
     } else turno=turno===1?2:1;
   },900);
