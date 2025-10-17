@@ -35,7 +35,7 @@ const actualizarBarras = () => {
 };
 
 const posiblesNames = (personaje,accion) => {
-  const f = `public/img/${personaje}`;
+const f = `./img/${personaje}`;
   const mapSel = {Veguito:"01",Veguetta:"02",Trunks:"03",Pikoro:"04",Goku:"05",Gohan:"06",Gogueta:"07",Cell:"08",Bocchi:"09",Girl:"10"};
   switch(accion){
     case"seleccion": return [`public/img/seleccion/${mapSel[personaje]||"01"}.png`,`${f}/seleccion.gif`,`${f}/seleccion.png`];
@@ -142,7 +142,7 @@ const playAction = (atq,def,pers,accion)=>{
         showDenyButton:true,confirmButtonText:" Revancha",denyButtonText:" Salir",
         confirmButtonColor:"#28a745",denyButtonColor:"#d33",allowOutsideClick:false,
         backdrop:`rgba(0,0,0,0.7) url("public/img/efectos/confetti.gif") center top no-repeat`
-      }).then(r=>r.isConfirmed?reiniciarJuego():Swal.fire({title:"¡Gracias por jugar!",text:"Esperamos verte en la próxima batalla ",icon:"info",confirmButtonText:"Salir",background:"black",color:"white"}).then(()=>location.reload())),1300);
+      }).then(r=>r.isConfirmed?reiniciarJuego():Swal.fire({title:"fin",text:"ya estufas ",icon:"info",confirmButtonText:"Salir",background:"black",color:"white"}).then(()=>location.reload())),1300);
     } else turno=turno===1?2:1;
   },900);
 };
