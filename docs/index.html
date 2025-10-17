@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DRAGON GAME</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #img_personaje1,
+    #img_personaje2 {
+      max-height: 300px;
+      object-fit: contain;
+    }
+  </style>
+</head>
+
+<body style="background: url('./public/img/kane-house-dragon-ball_3840x2160_xtrafondos.com.jpg') no-repeat center center fixed; background-size: cover;">
+
+  <!-- Fondos adicionales ocultos para el JS (si quieres mantenerlos en HTML) -->
+  <img id="bg1" src="./public/img/kane-house-dragon-ball_3840x2160_xtrafondos.com.jpg" style="display:none;">
+  <img id="bg2" src="./public/img/casa-en-el-campo-anime_8192x4560_xtrafondos.com.jpg" style="display:none;">
+  <img id="bg3" src="./public/img/estrellas-de-la-via-lactea_3840x2400_xtrafondos.com.jpg" style="display:none;">
+  <img id="bg4" src="./public/img/montanas-nevadas-cielo-con-estrellas-y-cometa_3840x2160_xtrafondos.com.jpg" style="display:none;">
+  <img id="bg5" src="./public/img/paisaje-minecraft-atardecer-en-la-selva_8192x4560_xtrafondos.com.jpg" style="display:none;">
+  <img id="bg6" src="./public/img/retrowave-montanas-de-lineas-estrellas-y-sol_5120x2880_xtrafondos.com.jpg" style="display:none;">
+
+  <div id="historial" class="text-center text-white mt-3"></div>
+
+  <div class="container">
+    <h1 class="text-center text-light">DRAGON GAME</h1>
+    <hr class="text-danger">
+
+    <!-- SELECCIÓN DE JUGADORES -->
+    <div class="row justify-content-around" id="seleccion_jugadores">
+
+      <!-- Player 1 -->
+      <div class="col-md-5" id="jugador1">
+        <input type="text" id="username_py1" class="form-control mb-3" placeholder="Player 1">
+        <div class="row mb-3" id="seleccion_personaje_py1">
+          <div class="col-3">
+            <button class="btn btn-danger rounded-circle">
+              <img src="./public/img/seleccion/01.png" alt="Veguito" class="img-fluid mt-1 mb-1" title="Veguito">
+            </button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-danger rounded-circle">
+              <img src="./public/img/seleccion/03.png" alt="Trunks" class="img-fluid mt-1 mb-1" title="Trunks">
+            </button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-danger rounded-circle">
+              <img src="./public/img/seleccion/05.png" alt="Goku" class="img-fluid mt-1 mb-1" title="Goku">
+            </button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-danger rounded-circle">
+              <img src="./public/img/seleccion/06.png" alt="Gohan" class="img-fluid mt-1 mb-1" title="Gohan">
+            </button>
+          </div>
+          <!-- NUEVO PERSONAJE SOLO PARA JUGADOR 1 -->
+          <div class="col-3">
+            <button class="btn btn-danger rounded-circle">
+              <img src="./public/img/seleccion/09.png" alt="Bocchi" class="img-fluid mt-1 mb-1" title="Bocchi">
+            </button>
+          </div>
+        </div>
+        <button id="btn_py1" class="btn btn-danger w-100 mb-3">Aceptar</button>
+      </div>
+
+      <!-- Player 2 -->
+      <div class="col-md-5" id="jugador2">
+        <input type="text" id="username_py2" class="form-control mb-3" placeholder="Player 2">
+        <div class="row mb-3" id="seleccion_personaje_py2">
+          <div class="col-3">
+            <button class="btn btn-primary rounded-circle">
+              <img src="./public/img/seleccion/02.png" alt="Veguetta" class="img-fluid mt-1 mb-1" title="Veguetta">
+            </button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-primary rounded-circle">
+              <img src="./public/img/seleccion/04.png" alt="Pikoro" class="img-fluid mt-1 mb-1" title="Pikoro">
+            </button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-primary rounded-circle">
+              <img src="./public/img/seleccion/07.png" alt="Gogueta" class="img-fluid mt-1 mb-1" title="Gogueta">
+            </button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-primary rounded-circle">
+              <img src="./public/img/seleccion/08.png" alt="Cell" class="img-fluid mt-1 mb-1" title="Cell">
+            </button>
+          </div>
+          <!-- NUEVO PERSONAJE SOLO PARA JUGADOR 2 -->
+          <div class="col-3">
+            <button class="btn btn-primary rounded-circle">
+              <img src="./public/img/seleccion/10.png" alt="Girl" class="img-fluid mt-1 mb-1" title="Girl">
+            </button>
+          </div>
+        </div>
+        <button id="btn_py2" class="btn btn-primary w-100 mb-3">Aceptar</button>
+      </div>
+    </div>
+
+    <!-- BATALLA -->
+    <div class="row justify-content-center align-items-center d-none" id="batalla" style="min-height: 400px;">
+      <!-- Player 1 -->
+      <div class="col-md-5 d-flex flex-column align-items-center text-light">
+        <h2 id="nombre_personaje1"></h2>
+        <p id="username1"></p>
+        <hr class="text-danger w-100">
+
+        <div class="w-100">
+          <div class="progress mb-3">
+            <div class="progress-bar bg-success" id="vida1" style="width: 100%">100 Vida</div>
+          </div>
+          <div class="progress mb-3">
+            <div class="progress-bar bg-info" id="energia1" style="width: 100%">100 Energía</div>
+          </div>
+          <div class="progress mb-3">
+            <div class="progress-bar bg-danger" id="ki1" style="width: 100%">100 Ki</div>
+          </div>
+        </div>
+
+        <img src="" alt="" id="img_personaje1" class="img-fluid">
+        <button id="btn_atk_basico1" class="btn btn-primary mt-2">Ataque Básico</button>
+        <button id="btn_atk_especial1" class="btn btn-danger mt-2">Ataque Especial</button>
+        <button id="btn_semilla1" class="btn btn-success mt-2">Semilla</button>
+        <button id="btn_cargarki1" class="btn btn-warning mt-2">Cargar Ki</button>
+      </div>
+
+      <div class="col-md-2 d-flex justify-content-center align-items-center">
+        <h2 class="text-center display-3 text-light">VS</h2>
+      </div>
+
+      <!-- Player 2 -->
+      <div class="col-md-5 d-flex flex-column align-items-center text-light">
+        <h2 id="nombre_personaje2"></h2>
+        <p id="username2"></p>
+        <hr class="text-danger w-100">
+
+        <div class="w-100">
+          <div class="progress mb-3">
+            <div class="progress-bar bg-success" id="vida2" style="width: 100%">100 Vida</div>
+          </div>
+          <div class="progress mb-3">
+            <div class="progress-bar bg-info" id="energia2" style="width: 100%">100 Energía</div>
+          </div>
+          <div class="progress mb-3">
+            <div class="progress-bar bg-danger" id="ki2" style="width: 100%">100 Ki</div>
+          </div>
+        </div>
+
+        <img src="" alt="" id="img_personaje2" class="img-fluid">
+        <button id="btn_atk_basico2" class="btn btn-primary mt-2">Ataque Básico</button>
+        <button id="btn_atk_especial2" class="btn btn-danger mt-2">Ataque Especial</button>
+        <button id="btn_semilla2" class="btn btn-success mt-2">Semilla</button>
+        <button id="btn_cargarki2" class="btn btn-warning mt-2">Cargar Ki</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./bundle.js"></script>
+</body>
+</html>
